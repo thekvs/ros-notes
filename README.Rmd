@@ -1,0 +1,38 @@
+---
+title: "ROS notes"
+author: "Konstantin Sorokin"
+date: "August 31, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Custom ROS build
+Основные моменты установки описаны тут <http://wiki.ros.org/kinetic/Installation/Source>. Для избежания путанницы и накладок важно, чтобы на сборочной машине не была установлена ROS из пакетов. Далее следуют конкретные примеры.
+
+### Начальная установка
+
+* ```$ rosinstall_generator robot perception ros_control  --rosdistro kinetic --deps --wet-only --tar > kinetic-wet.rosinstall```
+* ```$ wstool init -j8 src kinetic-robot-wet.rosinstall```
+* ```$ ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros_custom/kinetic```
+
+### Добавление пакетов
+Допустим нужно добавить пакеты ```navigation``` и ```slam_gmapping```. Для этого, подразумевая что предыдущий шаг был проделан, выполняем следующую последовательность команд:
+
+* ```$ rosinstall_generator robot perception ros_control navigation slam_gmapping --rosdistro kinetic --deps --wet-only --tar > kinetic-wet.rosinstall```
+* ```$ wstool merge -t src kinetic-wet.rosinstall```
+* ```$ wstool update -t src```
+* ```$ ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros_custom/kinetic```
+
+### Добавление пакетов не имеющих официальных релизов для данного дистрибутива ROS
+В данном примере устанавливается пакет ```velodyne```, который не имеет официального релиза для ROS kinetic.
+
+* В ```src``` поддиректории корневой ```catkin_ws```: ```$ wstool set velodyne --git https://github.com/ros-drivers/velodyne```
+* Из корневой ```catkin_ws``` директории: ```$ wstool update -t src```
+* ```$ ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros_custom/kinetic```
+
+### Ссылки
+
+* Описывается добавление пакеты без перекомпиляции всего: <http://answers.ros.org/question/221031/ros-build-single-package/>
