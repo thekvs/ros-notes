@@ -33,6 +33,9 @@ knitr::opts_chunk$set(echo = TRUE)
 * Из корневой ```catkin_ws``` директории: ```$ wstool update -t src```
 * ```$ ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros_custom/kinetic```
 
+Финальный вызов:
+```$ rosinstall_generator robot perception ros_control navigation slam_gmapping ackermann_msgs --rosdistro kinetic --deps --wet-only --tar > kinetic-wet.rosinstall```
+
 ### Ссылки
 
 * Описывается добавление пакеты без перекомпиляции всего: <http://answers.ros.org/question/221031/ros-build-single-package/>
