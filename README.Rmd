@@ -15,7 +15,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Начальная установка
 
 * ```$ rosinstall_generator robot perception ros_control  --rosdistro kinetic --deps --wet-only --tar > kinetic-wet.rosinstall```
-* ```$ wstool init -j8 src kinetic-robot-wet.rosinstall```
+* ```$ wstool init -j8 src kinetic-wet.rosinstall```
+* ```$ rosdep install --from-paths src --ignore-src --rosdistro kinetic -y```
 * ```$ ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros_custom/kinetic```
 
 ### Добавление пакетов
@@ -24,7 +25,10 @@ knitr::opts_chunk$set(echo = TRUE)
 * ```$ rosinstall_generator robot perception ros_control navigation slam_gmapping --rosdistro kinetic --deps --wet-only --tar > kinetic-wet.rosinstall```
 * ```$ wstool merge -t src kinetic-wet.rosinstall```
 * ```$ wstool update -t src```
+* ```$ rosdep install --from-paths src --ignore-src --rosdistro kinetic -y```
 * ```$ ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros_custom/kinetic```
+
+Теоретически вызов команды ```rosdep``` должен установить все сборочные зависимости, но на практике возможны сбои т.к. некоторые названия пакетов не совпадают, поэтому нужно доставлять руками и пробовать собрать заново. Пакеты, которые потребовалось доставить вручную при сборке ROS kinetic на Ubuntu 16.04.1: ```python-empy shiboken libpyside-dev libpoco-dev libgtest-dev liblz4-dev libassimp-dev libyaml-cpp-dev libgtk2.0-dev libpcl-dev```
 
 ### Добавление пакетов не имеющих официальных релизов для данного дистрибутива ROS
 В данном примере устанавливается пакет ```velodyne```, который не имеет официального релиза для ROS kinetic.
@@ -35,6 +39,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Финальный вызов:
 ```$ rosinstall_generator robot perception ros_control navigation slam_gmapping ackermann_msgs --rosdistro kinetic --deps --wet-only --tar > kinetic-wet.rosinstall```
+
+### Статус
+На ```01.09.2016``` на Ubuntu 16.04.1 сборка из исходников ROS kinetic не может быть осуществлена из-за следующей ошибки:
+```/usr/bin/ld: cannot find -lvtkproj4``` при сборке цели ```costmap_2d``` из пакета ```navigation```. На Ubuntu 14.04 сборка проходит успешно при условии патчения некоторых пакетов.
+
 
 ### Ссылки
 
