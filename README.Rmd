@@ -40,8 +40,13 @@ knitr::opts_chunk$set(echo = TRUE)
 Финальный вызов:
 ```$ rosinstall_generator robot perception ros_control navigation slam_gmapping ackermann_msgs --rosdistro kinetic --deps --wet-only --tar > kinetic-wet.rosinstall```
 
-Пакеты, добавленные вручную:
-```velodyne```
+Пакеты без официальных релизов, добавленные вручную:
+
+* ```velodyne```: ```$ wstool set velodyne --git https://github.com/ros-drivers/velodyne```
+* ```ros_controllers```: ```$ wstool set ros_controllers --git https://github.com/ros-controls/ros_controllers.git```
+* ```control_toolbox```: ```$ wstool set control_toolbox --git https://github.com/ros-controls/control_toolbox.git```
+
+Исходники пакетов, добавленных таким образом, лучше потом вручную (увы, wstool это похоже не умеет автоматизировать) откатывать на релизные тэги. В частности, были замечены проблемы с ```ros_controllers```.
 
 ### Статус
 На ```01.09.2016``` на Ubuntu 16.04.1 сборка из исходников ROS kinetic не может быть осуществлена из-за следующей ошибки:
