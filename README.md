@@ -1,15 +1,8 @@
----
-title: "ROS notes"
-author: "Konstantin Sorokin"
-date: "August 31, 2016"
-output:
-    html_document:
-        keep_md: true
----
+# ROS notes
+Konstantin Sorokin  
+August 31, 2016  
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 ## Custom ROS build
 Основные моменты установки описаны тут <http://wiki.ros.org/kinetic/Installation/Source>. Для избежания путанницы и накладок важно, чтобы на сборочной машине не была установлена ROS из пакетов. Далее следуют конкретные примеры.
