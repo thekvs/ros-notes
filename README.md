@@ -53,4 +53,4 @@ August 31, 2016
 
 ### Ссылки
 
-* Описывается добавление пакеты без перекомпиляции всего: <http://answers.ros.org/question/221031/ros-build-single-package/>
+* Описывается добавление пакетов без перекомпиляции всего: <http://answers.ros.org/question/221031/ros-build-single-package/>
